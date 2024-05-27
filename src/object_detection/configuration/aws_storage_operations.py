@@ -5,10 +5,10 @@ import sys
 from io import StringIO
 from typing import List, Union
 import pickle
+from pandas import DataFrame, read_csv
 import boto3
 from botocore.exceptions import ClientError
 from mypy_boto3_s3.service_resource import Bucket
-from pandas import DataFrame, read_csv
 from src.object_detection.constants import *
 from src.object_detection.logger import logging
 from src.object_detection.exception import ODISCException
