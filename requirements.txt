@@ -1,4 +1,10 @@
 # Usage: pip install -r requirements.txt
+dill==0.3.5.1
+from-root==1.0.2
+boto3
+mypy-boto3-s3
+flask-cors
+flask
 
 # Base ----------------------------------------
 matplotlib>=3.2.2
@@ -38,3 +44,6 @@ thop  # FLOPs computation
 # albumentations>=1.0.3
 # pycocotools>=2.0  # COCO mAP
 # roboflow
+
+from_root
+-e .
