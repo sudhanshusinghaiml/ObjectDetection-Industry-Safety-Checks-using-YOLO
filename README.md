@@ -54,28 +54,28 @@ python app.py
 
 	2. Push your docker image to ECR
 
-	3. Launch Your EC2 
+	3. Launch Your EC2
 
 	4. Pull Your image from ECR in EC2
 
 	5. Lauch your docker image in EC2
 
-	
+
 ### 4. Create ECR repo to store/save docker image
     - Save the URI: 136566696263.dkr.ecr.us-east-1.amazonaws.com/yolov7app
 
-	
-### 5. Create EC2 machine (Ubuntu) 
+
+### 5. Create EC2 machine (Ubuntu)
 
 ### 6. Open EC2 and Install docker in EC2 Machine:
-	
-	
+
+
 	#optinal
 
 	sudo apt-get update -y
 
 	sudo apt-get upgrade
-	
+
 	#required
 
 	curl -fsSL https://get.docker.com -o get-docker.sh
@@ -85,7 +85,7 @@ python app.py
 	sudo usermod -aG docker ubuntu
 
 	newgrp docker
-	
+
 ### 7. Configure EC2 as self-hosted runner:
     setting>actions>runner>new self hosted runner> choose os> then run command one by one
 
