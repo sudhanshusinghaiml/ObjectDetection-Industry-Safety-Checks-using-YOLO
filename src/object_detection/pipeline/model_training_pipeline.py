@@ -104,12 +104,35 @@ class TrainingPipeline:
             logging.error(error)
             raise ODISCException(error, sys) from error
 
+
     def run_pipeline(self) -> None:
         """This method basically call all the methods and object to run each pipeline"""
         try:
+            logging.info("Inside the run_pipeline method of \
+                         src.object_detection.pipeline.TrainingPipeline class")
+
             data_ingestion_artifact = self.start_data_ingestion()
 
-            print(data_ingestion_artifact)
+            logging.info("Completed start_data_ingestion method of \
+                         src.object_detection.pipeline.TrainingPipeline class")
+
+            data_validation_artifacts = self.start_data_validation(
+                data_ingestion_artifact = data_ingestion_artifact
+            )
+
+            logging.info("Completed start_data_validation method of \
+                         src.object_detection.pipeline.TrainingPipeline class")
+
+            if data_validation_artifacts.validation_status:
+                model_training_artifacts = self.start_model_training()
+
+                logging.info("Completed start_model_training method of \
+                         src.object_detection.pipeline.TrainingPipeline class")
+
+                logging.info("model_training_artifacts -", model_training_artifacts)
+
+            else:
+                raise ValueError("Some issue in Data Validation Please check and validate")
 
         except Exception as error:
             logging.error(error)
