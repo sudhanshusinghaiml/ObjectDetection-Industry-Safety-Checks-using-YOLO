@@ -5,14 +5,14 @@ import sys
 from src.object_detection.logger import logging
 from src.object_detection.exception import ODISCException
 from src.object_detection.entity.config_entity import DataValidationConfig
-from src.object_detection.entity.artifacts_entity import (DataIngestionArtifact,
-                                                          DataValidationArtifact)
+from src.object_detection.entity.artifacts_entity import (DataIngestionArtifacts,
+                                                          DataValidationArtifacts)
 
 
 
 class DataValidation:
     """This class encapuslates the methods associated to data validations"""
-    def __init__(self, data_ingestion_artifact: DataIngestionArtifact, data_validation_config: DataValidationConfig):
+    def __init__(self, data_ingestion_artifact: DataIngestionArtifacts, data_validation_config: DataValidationConfig):
         try:
             self.data_ingestion_artifact = data_ingestion_artifact
             self.data_validation_config = data_validation_config
@@ -51,13 +51,13 @@ class DataValidation:
             raise ODISCException(error, sys) from error
 
 
-    def initiate_data_validation(self) -> DataValidationArtifact:
+    def initiate_data_validation(self) -> DataValidationArtifacts:
         """This method is used to initiate the datavalidation process"""
         try:
             logging.info("Inside initiate_data_validation method of \
                          src.object_detection.components.data_validation class")
             status = self.validate_if_all_file_exists()
-            data_validation_artifact = DataValidationArtifact(
+            data_validation_artifact = DataValidationArtifacts(
                 validation_status = status
             )
 

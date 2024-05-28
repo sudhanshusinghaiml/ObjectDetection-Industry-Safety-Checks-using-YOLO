@@ -7,17 +7,17 @@ from src.object_detection.configuration.aws_storage_operations import S3Operatio
 from src.object_detection.components.data_ingestion import DataIngestion
 from src.object_detection.components.data_validation import DataValidation
 from src.object_detection.components.model_trainer import ModelTraining
-
-
+from src.object_detection.components.model_pusher import ModelPusher
 
 from src.object_detection.entity.config_entity import (DataIngestionConfig,
                                                        DataValidationConfig,
-                                                       ModelTrainingConfig)
+                                                       ModelTrainingConfig,
+                                                       ModelPusherConfig)
 
-
-from src.object_detection.entity.artifacts_entity import (DataIngestionArtifact,
-                                                          DataValidationArtifact,
-                                                          ModelTrainingArtifact)
+from src.object_detection.entity.artifacts_entity import (DataIngestionArtifacts,
+                                                          DataValidationArtifacts,
+                                                          ModelTrainingArtifacts,
+                                                          ModelPusherArtifacts)
 
 
 class TrainingPipeline:
@@ -27,11 +27,11 @@ class TrainingPipeline:
         self.data_ingestion_config = DataIngestionConfig()
         self.data_validation_config = DataValidationConfig()
         self.model_training_config = ModelTrainingConfig()
-        # self.model_pusher_config = ModelPusherConfig()
+        self.model_pusher_config = ModelPusherConfig()
         self.s3_operations = S3Operation()
 
 
-    def start_data_ingestion(self)-> DataIngestionArtifact:
+    def start_data_ingestion(self)-> DataIngestionArtifacts:
         """This method basically starts the data ingestion process when 
         triggered by run_pipeline"""
 
@@ -58,9 +58,9 @@ class TrainingPipeline:
             raise ODISCException(error, sys) from error
 
 
-    def start_data_validation(self, 
-                              data_ingestion_artifact: DataIngestionArtifact
-                              ) -> DataValidationArtifact:
+    def start_data_validation(self,
+                              data_ingestion_artifact: DataIngestionArtifacts
+                              ) -> DataValidationArtifacts:
         """This method starts the data validation pipeline"""
         try:
             logging.info("Inside the start_data_validation method of \
@@ -84,7 +84,7 @@ class TrainingPipeline:
             raise ODISCException(error, sys) from error
 
 
-    def start_model_training(self) -> ModelTrainingArtifact:
+    def start_model_training(self) -> ModelTrainingArtifacts:
         """This method starts the model training pipeline"""
         try:
             logging.info("Inside the start_model_training method of \
@@ -100,6 +100,30 @@ class TrainingPipeline:
                          src.object_detection.pipeline.TrainingPipeline class")
 
             return model_training_artifacts
+        except Exception as error:
+            logging.error(error)
+            raise ODISCException(error, sys) from error
+
+
+    def start_model_pusher(self, model_training_artifacts: ModelTrainingArtifacts, 
+                           s3: S3Operation) -> ModelPusherArtifacts:
+        """This method starts the model training pipeline"""
+        try:
+            logging.info("Inside the start_model_pusher method of \
+                         src.object_detection.pipeline.TrainingPipeline class")
+
+            model_pusher = ModelPusher(
+                model_pusher_config = self.model_pusher_config,
+                model_training_artifacts = model_training_artifacts,
+                s3 = s3
+            )
+
+            model_pusher_artifacts = model_pusher.initiate_model_pusher()
+
+            logging.info("Completed execution of the start_model_pusher method of \
+                         src.object_detection.pipeline.TrainingPipeline class")
+
+            return model_pusher_artifacts
         except Exception as error:
             logging.error(error)
             raise ODISCException(error, sys) from error
@@ -129,7 +153,15 @@ class TrainingPipeline:
                 logging.info("Completed start_model_training method of \
                          src.object_detection.pipeline.TrainingPipeline class")
 
-                logging.info("model_training_artifacts -", model_training_artifacts)
+                model_pusher_artifact = self.start_model_pusher(
+                    model_training_artifacts = model_training_artifacts,
+                    s3 = self.s3_operations
+                )
+
+                logging.info("Completed start_model_pusher method of \
+                         src.object_detection.pipeline.TrainingPipeline class")
+                
+                logging.info("model_training_artifacts -", model_pusher_artifact)
 
             else:
                 raise ValueError("Some issue in Data Validation Please check and validate")

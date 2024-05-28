@@ -5,7 +5,7 @@ import sys
 from src.object_detection.logger import logging
 from src.object_detection.exception import ODISCException
 from src.object_detection.entity.config_entity import DataIngestionConfig
-from src.object_detection.entity.artifacts_entity import DataIngestionArtifact
+from src.object_detection.entity.artifacts_entity import DataIngestionArtifacts
 from src.object_detection.configuration.aws_storage_operations import S3Operation
 from src.object_detection.constants import DATA_BUCKET_NAME
 
@@ -54,7 +54,7 @@ class DataIngestion:
             raise ODISCException(error, sys) from error
 
 
-    def initiate_data_ingestion(self)-> DataIngestionArtifact:
+    def initiate_data_ingestion(self)-> DataIngestionArtifacts:
         """This method is used to initiate data ingestion"""
         logging.info("Inside initiate_data_ingestion method of \
                      src.object_detection.components.Data_Ingestion class")
@@ -63,7 +63,7 @@ class DataIngestion:
             feature_store_path = self.extract_zip_file(zip_file_path)
             logging.info(f"unzipped the file into {zip_file_path}")
 
-            data_ingestion_artifact = DataIngestionArtifact(
+            data_ingestion_artifact = DataIngestionArtifacts(
                 data_zip_file_path = zip_file_path,
                 feature_store_path = feature_store_path
             )

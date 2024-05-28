@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class DataIngestionArtifact:
+class DataIngestionArtifacts:
     """This class includes artifacts for Data Ingestion"""
 
     data_zip_file_path: str
@@ -12,14 +12,14 @@ class DataIngestionArtifact:
 
 
 @dataclass
-class DataValidationArtifact:
+class DataValidationArtifacts:
     """This class includes artifacts for Data Ingestion"""
 
     validation_status: bool
 
 
 @dataclass
-class ModelTrainingArtifact:
+class ModelTrainingArtifacts:
     """This class includes artifacts for Model Trainer"""
 
     trained_model_file_path: str
