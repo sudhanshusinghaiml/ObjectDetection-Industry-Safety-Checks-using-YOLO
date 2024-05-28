@@ -6,15 +6,18 @@ from src.object_detection.exception import ODISCException
 from src.object_detection.configuration.aws_storage_operations import S3Operation
 from src.object_detection.components.data_ingestion import DataIngestion
 from src.object_detection.components.data_validation import DataValidation
+from src.object_detection.components.model_trainer import ModelTraining
 
 
 
 from src.object_detection.entity.config_entity import (DataIngestionConfig,
-                                                       DataValidationConfig,)
+                                                       DataValidationConfig,
+                                                       ModelTrainingConfig)
 
 
 from src.object_detection.entity.artifacts_entity import (DataIngestionArtifact,
-                                                          DataValidationArtifact)
+                                                          DataValidationArtifact,
+                                                          ModelTrainingArtifact)
 
 
 class TrainingPipeline:
@@ -23,7 +26,7 @@ class TrainingPipeline:
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
         self.data_validation_config = DataValidationConfig()
-        # self.model_trainer_config = ModelTrainerConfig()
+        self.model_training_config = ModelTrainingConfig()
         # self.model_pusher_config = ModelPusherConfig()
         self.s3_operations = S3Operation()
 
@@ -80,6 +83,26 @@ class TrainingPipeline:
             logging.error(error)
             raise ODISCException(error, sys) from error
 
+
+    def start_model_training(self) -> ModelTrainingArtifact:
+        """This method starts the model training pipeline"""
+        try:
+            logging.info("Inside the start_model_training method of \
+                         src.object_detection.pipeline.TrainingPipeline class")
+
+            model_training = ModelTraining(
+                model_training_config = self.model_training_config
+            )
+
+            model_training_artifacts = model_training.initite_model_training()
+
+            logging.info("Completed execution of the start_model_training method of \
+                         src.object_detection.pipeline.TrainingPipeline class")
+
+            return model_training_artifacts
+        except Exception as error:
+            logging.error(error)
+            raise ODISCException(error, sys) from error
 
     def run_pipeline(self) -> None:
         """This method basically call all the methods and object to run each pipeline"""

@@ -19,7 +19,7 @@ class DataValidationArtifact:
 
 
 @dataclass
-class ModelTrainerArtifact:
+class ModelTrainingArtifact:
     """This class includes artifacts for Model Trainer"""
 
     trained_model_file_path: str
