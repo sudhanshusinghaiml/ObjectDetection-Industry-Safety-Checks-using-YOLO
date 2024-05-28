@@ -166,4 +166,4 @@ notebook/images/
 notebook/labels/
 notebook/train.txt
 notebook/val.txt
-notebook/yolov7
+notebook/yolov7/

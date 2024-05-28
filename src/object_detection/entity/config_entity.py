@@ -3,7 +3,17 @@
 import os
 from dataclasses import dataclass
 from datetime import datetime
-from src.object_detection.constants import *
+from src.object_detection.constants import ( ARTIFACTS_DIR, DATA_INGESTION_DIR_NAME, 
+                                            DATA_INGESTION_FEATURE_STORE_DIR, 
+                                            DATA_VALIDATION_ALL_REQUIRED_FILES, 
+                                            DATA_VALIDATION_DIR_NAME, 
+                                            DATA_INGESTION_S3_DATA_NAME, 
+                                            DATA_VALIDATION_STATUS_FILE, 
+                                            MODEL_TRAINER_DIR_NAME, MODEL_BUCKET_NAME, 
+                                            MODEL_TRAINER_BATCH_SIZE, 
+                                            MODEL_TRAINER_NO_EPOCHS, 
+                                            MODEL_TRAINER_PRETRAINED_WEIGHT_URL, 
+                                            S3_MODEL_NAME)
 
 
 TIMESTAMP: str = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")

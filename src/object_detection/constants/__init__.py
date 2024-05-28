@@ -12,7 +12,7 @@ DATA_INGESTION_FEATURE_STORE_DIR: str = "feature_store"
 
 DATA_INGESTION_S3_DATA_NAME: str = "isd_data.zip"
 
-DATA_BUCKET_NAME = "isd-data-24"
+DATA_BUCKET_NAME: str = "object-detection-industry-safety-check-data-28052024"
 
 
 """
@@ -35,7 +35,7 @@ DATA_VALIDATION_ALL_REQUIRED_FILES = [
 """
 MODEL TRAINER related constant start with MODEL_TRAINER var name
 """
-MODEL_TRAINER_DIR_NAME: str = "model_trainer"
+MODEL_TRAINER_DIR_NAME: str = "model_training"
 
 MODEL_TRAINER_PRETRAINED_WEIGHT_URL: str = (
     "https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt"
@@ -49,5 +49,5 @@ MODEL_TRAINER_BATCH_SIZE: int = 8
 """
 MODEL PUSHER related constant start with MODEL_PUSHER var name
 """
-MODEL_BUCKET_NAME = "isd-data-24"
+MODEL_BUCKET_NAME = "object-detection-industry-safety-check-model-28052024"
 S3_MODEL_NAME = "best.pt"
