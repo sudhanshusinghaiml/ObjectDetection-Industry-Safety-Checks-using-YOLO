@@ -167,3 +167,7 @@ notebook/labels/
 notebook/train.txt
 notebook/val.txt
 notebook/yolov7/
+# src/object_detection/configuration/aws_storage_operations.bkp
+artifacts
+notebook/yolov7.zip
+data/isd_data_backup.zip
