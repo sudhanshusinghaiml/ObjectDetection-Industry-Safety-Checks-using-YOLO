@@ -58,7 +58,7 @@ def predict_route():
 
         opencoded_base64 = encode_image_to_base64("yolov7/runs/detect/exp/inputImage.jpg")
         result = {"image": opencoded_base64.decode('utf-8')}
-        # os.system("rm -rf yolov7/runs")
+        os.system("rm -rf yolov7/runs/")
 
     except ValueError as val:
         print(val)
