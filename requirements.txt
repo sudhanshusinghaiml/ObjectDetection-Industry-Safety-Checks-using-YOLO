@@ -5,6 +5,7 @@ boto3
 mypy-boto3-s3
 flask-cors
 flask
+gunicorn
 
 # Base ----------------------------------------
 matplotlib>=3.2.2

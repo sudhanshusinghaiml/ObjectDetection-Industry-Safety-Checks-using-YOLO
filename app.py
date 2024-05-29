@@ -54,7 +54,7 @@ def predict_route():
         od_client = ObjectDetectionClient()
         decode_image(image, od_client.filename)
 
-        os.system("cd yolov7/ && python detect.py --weights my_model.pt  --source ../data/inputImage.jpg")
+        os.system("cd yolov7/ && python detect.py --weights yolov7.pt  --source ../data/inputImage.jpg")
 
         opencoded_base64 = encode_image_to_base64("yolov7/runs/detect/exp/inputImage.jpg")
         result = {"image": opencoded_base64.decode('utf-8')}

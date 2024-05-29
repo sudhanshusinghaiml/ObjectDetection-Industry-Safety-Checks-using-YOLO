@@ -185,7 +185,7 @@ class TrainingPipeline:
                          src.object_detection.pipeline.TrainingPipeline class"
                 )
 
-                logging.info("model_training_artifacts -", model_pusher_artifact)
+                logging.info(f"model_pusher_artifact - {model_pusher_artifact}")
 
             else:
                 raise ValueError(
