@@ -172,3 +172,4 @@ artifacts
 notebook/yolov7.zip
 data/isd_data_backup.zip
 yolov7.pt
+runs/

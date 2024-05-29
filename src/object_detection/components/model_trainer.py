@@ -83,24 +83,13 @@ class ModelTraining:
 
             logging.info(f"Model Training started - {datetime.now()}")
 
-            # Model Training
-            # os.system(
-            #     f"python yolov7/train.py \
-            #     --batch {self.model_training_config.batch_size} \
-            #     --cfg yolov7/cfg/training/custom_yolov7.yaml \
-            #     --epochs {self.model_training_config.no_epochs} \
-            #     --data yolov7/data/custom.yaml --weights /yolov7/yolov7.pt\
-            #     "
-            # )
-
             os.system(f"python yolov7/train.py --batch {self.model_training_config.batch_size} --cfg yolov7/cfg/training/custom_yolov7.yaml --epochs {self.model_training_config.no_epochs} --data yolov7/data/custom.yaml --weights yolov7/yolov7.pt ")
 
             logging.info(f"Model Training completed - {datetime.now()}")
             logging.info(f"Present working directory is - {os.getcwd()}")
 
-            # os.system("cp yolov7/runs/train/exp/weights/best.pt yolov7/")
             try:
-                shutil.copy("yolov7/runs/train/exp/weights/best.pt", "yolov7/")
+                shutil.copy("runs/train/exp/weights/best.pt", "yolov7/")
                 logging.info("Copied best models in yolov7/best.pt")
             except FileNotFoundError as error:
                 logging.error(f"File not found: {error}")
@@ -108,14 +97,11 @@ class ModelTraining:
             os.makedirs(self.model_training_config.model_trainer_directory, exist_ok=True)
 
             try:
-                shutil.copy("yolov7/runs/train/exp/weights/best.pt", 
+                shutil.copy("runs/train/exp/weights/best.pt",
                             self.model_training_config.model_trainer_directory)
                 logging.info("Copied best models in yolov7/best.pt")
             except FileNotFoundError as error:
                 logging.error(f"File not found: {error}")
-
-            logging.info(f"Copied best models in \
-                         {self.model_training_config.model_trainer_directory}")
 
             # os.system("rm -rf yolov7/runs")
             # os.system("rm -rf images")
